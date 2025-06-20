@@ -31,7 +31,12 @@ luoyun是一个微信bot虚拟人方案，我个人做了大约两年的时间�
 https://github.com/PeterZhao119/luoyun_project/tree/main/doc/%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%90%AF%E5%8A%A8%EF%BC%88qiaoyun%EF%BC%89
 
 ## 更新
-v0.4 初步完成的版本
-v0.3 完成延迟回复，背景agent，每日agent
-v0.2 完成多模态
-v0.1 完成初步的框架和多轮对话能力
+- v0.5 完成文档
+- v0.4 初步完成的版本
+- v0.3 完成延迟回复，背景agent，每日agent
+- v0.2 完成多模态
+- v0.1 完成初步的框架和多轮对话能力
+
+## 联系作者
+wechat: Leaninwind
+email: zhyue1985@gmail.com
