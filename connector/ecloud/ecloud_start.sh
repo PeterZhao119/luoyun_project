@@ -10,7 +10,7 @@ export ARK_API_KEY="ARK_API_KEY"
 export MINIMAX_API_KEY="MINIMAX_API_KEY"
 export MINIMAX_GROUP_ID="MINIMAX_GROUP_ID"
 
-target_dir="/home/ecs-user/luoyun/myenv/bin"; [[ ":$PATH:" != *":$target_dir:"* ]] && export PATH="$target_dir:$PATH"
+target_dir="/home/ecs-user/luoyun_project/myenv/bin"; [[ ":$PATH:" != *":$target_dir:"* ]] && export PATH="$target_dir:$PATH"
 
 pid=$(ps -ef | grep ecloud_input.py | grep -v grep | awk '{print $2}')
 kill $pid
