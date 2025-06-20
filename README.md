@@ -21,13 +21,14 @@ luoyun是一个微信bot虚拟人方案，我个人做了大约两年的时间�
 如果你对以上没有问题，请继续。
 
 ## 方案图与整体思路
-![luoyun_project architeture](https://github.com/PeterZhao119/luoyun/blob/main/doc/luoyun_project%20architecture.png)
+![luoyun_project architeture](https://github.com/PeterZhao119/luoyun_project/blob/main/doc/luoyun_project%20architecture.png)
 
 ## 部署方案
 接下来让我们用林巧芸(qiaoyun)这个角色当做例子来进行部署。
 （由于李洛云的人设我不愿意公开，请大家使用林巧芸）
 
-https://github.com/PeterZhao119/luoyun/tree/main/doc/%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%90%AF%E5%8A%A8%EF%BC%88qiaoyun%EF%BC%89
+部署与启动方案（林巧芸）：
+https://github.com/PeterZhao119/luoyun_project/tree/main/doc/%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%90%AF%E5%8A%A8%EF%BC%88qiaoyun%EF%BC%89
 
 ## 更新
 v0.4 初步完成的版本
