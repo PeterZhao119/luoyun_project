@@ -1,0 +1,4 @@
+oss2
+aliyun-python-sdk-core>=2.13.3
+matplotlib>=3.3.4
+

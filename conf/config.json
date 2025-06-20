@@ -1,0 +1,33 @@
+{
+    "aliyun": {
+        "characters": {
+            "qiaoyun": "qiaoyun_id"
+        }
+    },
+    "ecloud": {
+        "Authorization": "ecloud_login_authorization",
+        "wId": {
+            "qiaoyun": "qiaoyun_wId"
+        }
+    },
+    "mongodb": {
+        "mongodb_ip": "127.0.0.1",
+        "mongodb_port": "27017",
+        "mongodb_name": "mymongo"
+    },
+    "liblib": {
+        "AccessKey": "AccessKey",
+        "SecretKey": "SecretKey"
+    },
+    "doubao_models": {
+        "deepseek_r1": "xxx",
+        "deepseek_v3.1": "xxx",
+        "doubao_1.5_pro": "xxx",
+        "doubao_1.6_pro": "xxx"
+    },
+    "aliyun_asr": {
+        "URL": "wss://nls-gateway-cn-shanghai.aliyuncs.com/ws/v1",
+        "APPKEY": "APPKEY"
+    },
+    "admin_user_id": "admin_user_id"
+}
