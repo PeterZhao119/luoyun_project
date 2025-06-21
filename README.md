@@ -93,6 +93,8 @@ https://github.com/PeterZhao119/luoyun_project/tree/main/doc/%E9%83%A8%E7%BD%B2%
 - v0.2 完成多模态
 - v0.1 完成初步的框架和多轮对话能力
 
-## 联系作者
-wechat: Leaninwind
-email: zhyue1985@gmail.com
+## 一些联系方式
+- 作者wechat: Leaninwind
+- 作者email: zhyue1985@gmail.com
+- 林巧芸（测试账号）：wxid_hj5ko1tzy5or22
+- 李洛云（测试账号）：luoyun_project
