@@ -99,103 +99,115 @@ def decrease_all():
     logger.info("decrease all relationships...")
     relations = mongo.find_many("relations", query={"cid": target_user_id}, limit=10000)
     for relation in relations:
-        if relation["relationship"]["closeness"] > 0 or relation["relationship"]["trustness"] > 0:
-            relation["relationship"]["closeness"] = relation["relationship"]["closeness"] - 1
-            relation["relationship"]["trustness"] = relation["relationship"]["trustness"] - 1
-            if relation["relationship"]["closeness"] < 0:
-                relation["relationship"]["closeness"] = 0
-            if relation["relationship"]["trustness"] < 0:
-                relation["relationship"]["trustness"] = 0
-            mongo.replace_one("relations", {"_id": relation["_id"]}, relation)
+        try:
+            if relation["relationship"]["closeness"] > 0 or relation["relationship"]["trustness"] > 0:
+                relation["relationship"]["closeness"] = relation["relationship"]["closeness"] - 1
+                relation["relationship"]["trustness"] = relation["relationship"]["trustness"] - 1
+                if relation["relationship"]["closeness"] < 0:
+                    relation["relationship"]["closeness"] = 0
+                if relation["relationship"]["trustness"] < 0:
+                    relation["relationship"]["trustness"] = 0
+                mongo.replace_one("relations", {"_id": relation["_id"]}, relation)
+        except Exception as e:
+            logger.error(traceback.format_exc())
 
 def handle_status():
-    now = int(time.time())
-    date_str = date2str(int(time.time()))
-    character = user_dao.get_user_by_id(target_user_id)
-    current_script = mongo.find_one("dailyscripts", {"date": date_str, "cid": target_user_id, "start_timestamp": {"$lt": now}, "end_timestamp": {"$gt": now}})
-    if current_script is not None:
-        if current_script["action"] != character["user_info"]["status"]["action"]:
-            logger.info("entering new script:" + str(current_script))
-            # 更新当前活动脚本
-            character["user_info"]["status"]["action"] = current_script["action"]
-            character["user_info"]["status"]["place"] = current_script["place"]
-            character["user_info"]["status"]["status"] = current_script["status"]
-            mongo.replace_one("users", {"_id": ObjectId(target_user_id)}, character)
-            # 按照概率更新对所有人的忙闲情况
-            relations = mongo.find_many("relations", {"cid": target_user_id})
-            for relation in relations:
-                relation["relationship"]["status"] = current_script["status"]
-                if current_script["status"] in ["繁忙"]:
-                    chance = (relation["relationship"]["closeness"] + relation["relationship"]["trustness"]) / 150
-                    if chance > random.random():
-                        relation["relationship"]["status"] = "空闲"
-                if current_script["status"] in ["睡觉"]:
-                    chance = (relation["relationship"]["closeness"] + relation["relationship"]["trustness"]) / 480
-                    if chance > random.random():
-                        relation["relationship"]["status"] = "空闲"
-                mongo.replace_one("relations", {"_id": relation["_id"]}, relation)
+    try:
+        now = int(time.time())
+        date_str = date2str(int(time.time()))
+        character = user_dao.get_user_by_id(target_user_id)
+        current_script = mongo.find_one("dailyscripts", {"date": date_str, "cid": target_user_id, "start_timestamp": {"$lt": now}, "end_timestamp": {"$gt": now}})
+        if current_script is not None:
+            if current_script["action"] != character["user_info"]["status"]["action"]:
+                logger.info("entering new script:" + str(current_script))
+                # 更新当前活动脚本
+                character["user_info"]["status"]["action"] = current_script["action"]
+                character["user_info"]["status"]["place"] = current_script["place"]
+                character["user_info"]["status"]["status"] = current_script["status"]
+                mongo.replace_one("users", {"_id": ObjectId(target_user_id)}, character)
+                # 按照概率更新对所有人的忙闲情况
+                relations = mongo.find_many("relations", {"cid": target_user_id})
+                for relation in relations:
+                    relation["relationship"]["status"] = current_script["status"]
+                    if current_script["status"] in ["繁忙"]:
+                        chance = (relation["relationship"]["closeness"] + relation["relationship"]["trustness"]) / 150
+                        if chance > random.random():
+                            relation["relationship"]["status"] = "空闲"
+                    if current_script["status"] in ["睡觉"]:
+                        chance = (relation["relationship"]["closeness"] + relation["relationship"]["trustness"]) / 480
+                        if chance > random.random():
+                            relation["relationship"]["status"] = "空闲"
+                    mongo.replace_one("relations", {"_id": relation["_id"]}, relation)
 
-                # 如果为空闲，则调整所有该用户所有hold的message状态到pending
-                mongo.update_many("inputmessages", {"from_user": relation["uid"], "to_user": relation["cid"], "status": "hold"}, {"$set": {"status": "pending"}})
+                    # 如果为空闲，则调整所有该用户所有hold的message状态到pending
+                    mongo.update_many("inputmessages", {"from_user": relation["uid"], "to_user": relation["cid"], "status": "hold"}, {"$set": {"status": "pending"}})
+    except Exception as e:
+        logger.error(traceback.format_exc())
+
 
 def handle_proactive_message():
-    # 先确保角色不在忙碌
-    logger.info("start character proactive agent...")
-    now = int(time.time())
-    date_str = date2str(int(time.time()))
-    character = user_dao.get_user_by_id(target_user_id)
-    current_script = mongo.find_one("dailyscripts", {"date": date_str, "cid": target_user_id, "start_timestamp": {"$lt": now}, "end_timestamp": {"$gt": now}})
-    if current_script is not None:
-        if "status" not in character["user_info"]["status"]:
-            character["user_info"]["status"]["status"] = "空闲"
-        if character["user_info"]["status"]["status"] in ["空闲"]:
-            # 拿到所有关系，确保关系适合发送
-            logger.info("fetch all relations...")
-            relations = mongo.find_many("relations", {"cid": target_user_id})
-            for relation in relations:
-                if relation["relationship"]["dislike"] >= 100:
-                    continue
-                if "status" not in relation["character_info"]:
-                    relation["character_info"]["status"] = "空闲"
-                if relation["character_info"]["status"] not in ["空闲"]:
-                    continue
-                user = user_dao.get_user_by_id(relation["uid"])
-                character = user_dao.get_user_by_id(relation["cid"])
-                conversation = conversation_dao.get_private_conversation(
-                    "wechat",
-                    user["platforms"]["wechat"]["id"],
-                    character["platforms"]["wechat"]["id"],
-                )
-                if conversation is None:
-                    continue
-                if conversation["conversation_info"]["action"] is not None:
-                    continue
-
-                # 单次预期概率
-                chance = ((relation["relationship"]["closeness"] + relation["relationship"]["trustness"]) / 200 + 0.5) * proactive_chance
-                logger.info("chance: " + str(chance))
-                if chance < random.random():
-                    continue
-
-                # 多次惩罚
-                future_proactive_times = conversation["conversation_info"]["future"]["proactive_times"]
-                if future_proactive_times > 0:
-                    if random.random() > (0.3 ** future_proactive_times):
+    try:
+        # 先确保角色不在忙碌
+        logger.info("start character proactive agent...")
+        now = int(time.time())
+        date_str = date2str(int(time.time()))
+        character = user_dao.get_user_by_id(target_user_id)
+        current_script = mongo.find_one("dailyscripts", {"date": date_str, "cid": target_user_id, "start_timestamp": {"$lt": now}, "end_timestamp": {"$gt": now}})
+        if current_script is not None:
+            if "status" not in character["user_info"]["status"]:
+                character["user_info"]["status"]["status"] = "空闲"
+            if character["user_info"]["status"]["status"] in ["空闲"]:
+                # 拿到所有关系，确保关系适合发送
+                logger.info("fetch all relations...")
+                relations = mongo.find_many("relations", {"cid": target_user_id})
+                for relation in relations:
+                    if relation["relationship"]["dislike"] >= 100:
                         continue
-                
-                # 开始主动消息
-                # 随机选择一个话题
-                random_topics = [
-                    "挑一条今天的新闻聊聊",
-                    "聊一聊自己擅长的话题",
-                    "聊一聊之前谈论过的话题"
-                ]
-                random_topic = random.sample(random_topics, 1)[0]
-                logger.info("发起主动话题..." + random_topic)
-                conversation["conversation_info"]["future"]["timestamp"] = int(time.time())
-                conversation["conversation_info"]["future"]["action"] = random_topic
+                    if "status" not in relation["character_info"]:
+                        relation["character_info"]["status"] = "空闲"
+                    if relation["character_info"]["status"] not in ["空闲"]:
+                        continue
+                    user = user_dao.get_user_by_id(relation["uid"])
+                    character = user_dao.get_user_by_id(relation["cid"])
+                    conversation = conversation_dao.get_private_conversation(
+                        "wechat",
+                        user["platforms"]["wechat"]["id"],
+                        character["platforms"]["wechat"]["id"],
+                    )
+                    if conversation is None:
+                        continue
+                    if "action" not in conversation["conversation_info"]:
+                        conversation["conversation_info"]["action"] = None
+                    if conversation["conversation_info"]["action"] is not None:
+                        continue
 
-                mongo.replace_one("conversations", {"_id": conversation["_id"]}, conversation)
+                    # 单次预期概率
+                    chance = ((relation["relationship"]["closeness"] + relation["relationship"]["trustness"]) / 200 + 0.5) * proactive_chance
+                    logger.info("chance: " + str(chance))
+                    if chance < random.random():
+                        continue
+
+                    # 多次惩罚
+                    future_proactive_times = conversation["conversation_info"]["future"]["proactive_times"]
+                    if future_proactive_times > 0:
+                        if random.random() > (0.3 ** future_proactive_times):
+                            continue
+                    
+                    # 开始主动消息
+                    # 随机选择一个话题
+                    random_topics = [
+                        "挑一条今天的新闻聊聊",
+                        "聊一聊自己擅长的话题",
+                        "聊一聊之前谈论过的话题"
+                    ]
+                    random_topic = random.sample(random_topics, 1)[0]
+                    logger.info("发起主动话题..." + random_topic)
+                    conversation["conversation_info"]["future"]["timestamp"] = int(time.time())
+                    conversation["conversation_info"]["future"]["action"] = random_topic
+
+                    mongo.replace_one("conversations", {"_id": conversation["_id"]}, conversation)
+    except Exception as e:
+        logger.error(traceback.format_exc())
 
 def handle_pending_future_message():
     # user_whitelist = "不辣的皮皮"
