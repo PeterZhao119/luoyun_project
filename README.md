@@ -96,5 +96,5 @@ https://github.com/PeterZhao119/luoyun_project/tree/main/doc/%E9%83%A8%E7%BD%B2%
 ## 一些联系方式
 - 作者wechat: Leaninwind
 - 作者email: zhyue1985@gmail.com
-- 林巧芸（测试账号）：wxid_hj5ko1tzy5or22
+- 林巧芸（测试账号）：18917209041
 - 李洛云（测试账号）：luoyun_project
