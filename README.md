@@ -23,15 +23,9 @@ luoyun是一个微信bot虚拟人方案，我个人做了大约两年的时间�
 ## 效果演示
 ![-](doc/demo/001.png)
 
-<video controls>
-  <source src="doc/demo/demo1.mp4" type="video/mp4">
-  您的浏览器不支持视频标签。
-</video>
+<iframe src="https://player.vimeo.com/video/1096513770?h=7102e93413&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="1364" height="1288" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" title="demo1"></iframe>
 
-<video controls>
-  <source src="doc/demo/demo2.mp4" type="video/mp4">
-  您的浏览器不支持视频标签。
-</video>
+<iframe src="https://player.vimeo.com/video/1096513824?h=550b8b1421&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="576" height="1280" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" title="demo2"></iframe>
 
 [demo1.mp4](doc/demo/demo1.mp4)
 [demo2.mp4](doc/demo/demo2.mp4)
