@@ -166,11 +166,15 @@ async def main_handler():
                     expect_output_timestamp = int(time.time())
                     multimodal_responses = result["resp"]["MultiModalResponses"]
 
+                    multimodal_responses_index = 0
                     for multimodal_response in multimodal_responses:
+                        multimodal_responses_index = multimodal_responses_index + 1
                         # 处理声音
                         if multimodal_response["type"] == "voice":
                             voice_messages = qiaoyun_voice(multimodal_response["content"], multimodal_response["emotion"])
                             for voice_url, voice_length in voice_messages:
+                                if multimodal_responses_index > 1:
+                                    expect_output_timestamp = expect_output_timestamp + int(voice_length/1000) + random.randint(2,5)
                                 outputmessage = send_message_via_context(
                                     context,
                                     message=multimodal_response["content"],
@@ -184,8 +188,6 @@ async def main_handler():
 
                                 if outputmessage is not None:
                                     resp_messages.append(outputmessage)
-                                
-                                expect_output_timestamp = expect_output_timestamp + int(voice_length/1000) + random.randint(2,5)
                         
                         # 处理照片
                         elif multimodal_response["type"] == "photo":
@@ -200,7 +202,9 @@ async def main_handler():
                                 context["conversation"]["conversation_info"]["photo_history"].append(photo_id)
                                 if len(context["conversation"]["conversation_info"]["photo_history"]) > 12:
                                     context["conversation"]["conversation_info"]["photo_history"] = context["conversation"]["conversation_info"]["photo_history"][-12:]
-
+                                
+                                if multimodal_responses_index > 1:
+                                    expect_output_timestamp = expect_output_timestamp + random.randint(2, 8)
                                 outputmessage = send_message_via_context(
                                     context,
                                     message=multimodal_response["content"],
@@ -215,12 +219,12 @@ async def main_handler():
 
                                 if outputmessage is not None:
                                     resp_messages.append(outputmessage)
-                                
-                                expect_output_timestamp = expect_output_timestamp + random.randint(2, 8)
 
                         # 处理其他情况（文本）
                         else:
                             text_message = str(multimodal_response["content"]).replace("<换行>", "\n")
+                            if multimodal_responses_index > 1:
+                                expect_output_timestamp = expect_output_timestamp + int(len(text_message)/typing_speed)
                             outputmessage = send_message_via_context(
                                 context,
                                 message=text_message,
@@ -230,8 +234,6 @@ async def main_handler():
 
                             if outputmessage is not None:
                                 resp_messages.append(outputmessage)
-                            
-                            expect_output_timestamp = expect_output_timestamp + int(len(text_message)/typing_speed)
 
                         # 判断新消息，打断
                         if is_new_message_coming_in(str(user["_id"]), str(character["_id"]), platform):

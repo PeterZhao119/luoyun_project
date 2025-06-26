@@ -138,3 +138,26 @@
     }
 }
 ```
+# Embeddgins
+## embeddings
+```
+{
+    "key": "xxx",
+    "key_embedding": "xxx",
+    "value": "xxx",
+    "value_embedding": "xxx",
+    "metadata": {
+        "type": "xxx", 
+        # 类型包括：
+        # character_global 角色全局设定
+        # chatacter_private 角色私有设定
+        # user 用户私有设定
+        # character_knowledge 角色全局知识（学习，搜索等）
+        # character_photo 角色全局手机相册
+        "uid": "xxx",
+        "cid": "xxx",
+        "url": "xxx", # 地址
+        "file": "xxxx", # 文件的base64
+    }
+}
+```
