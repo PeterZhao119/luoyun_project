@@ -23,9 +23,8 @@ luoyun是一个微信bot虚拟人方案，我个人做了大约两年的时间�
 ## 效果演示
 ![-](doc/demo/001.png)
 
-<iframe width="1024" height="768" src="https://youtu.be/GuFm3Fu-qhI" frameborder="0" allowfullscreen></iframe>
-
-<iframe width="1024" height="768" src="https://youtube.com/shorts/JoJevVB8H5A?feature=share" frameborder="0" allowfullscreen></iframe>
+<video src="https://github.com/user-attachments/assets/3a3f650c-282b-4c3c-8423-ab492c789e04" width=1024 controls></video>
+<video src="https://github.com/user-attachments/assets/21401e97-a4a6-445a-8847-7f7b20a1c0c3" width=1024 controls></video>
 
 ## 方案图与整体思路
 ![luoyun_project architeture](https://github.com/PeterZhao119/luoyun_project/blob/main/doc/luoyun_project%20architecture.png)
@@ -107,3 +106,5 @@ https://github.com/PeterZhao119/luoyun_project/tree/main/doc/%E9%83%A8%E7%BD%B2%
 - （请先加作者微信说明自己的身份和情况，再加下面的测试账号）
 - 林巧芸（测试账号）：18917209041
 - 李洛云（测试账号）：luoyun_project
+
+
