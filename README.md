@@ -20,6 +20,11 @@ luoyun是一个微信bot虚拟人方案，我个人做了大约两年的时间�
 
 如果你对以上没有问题，请继续。
 
+## 效果演示
+![-](https://github.com/PeterZhao119/luoyun_project/blob/main/doc/demo/001.png)
+![-](https://github.com/PeterZhao119/luoyun_project/blob/main/doc/demo/demo1.mp4)
+![-](https://github.com/PeterZhao119/luoyun_project/blob/main/doc/demo/demo2.mp4)
+
 ## 方案图与整体思路
 ![luoyun_project architeture](https://github.com/PeterZhao119/luoyun_project/blob/main/doc/luoyun_project%20architecture.png)
 
