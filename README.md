@@ -24,6 +24,7 @@ luoyun是一个微信bot虚拟人方案，我个人做了大约两年的时间�
 ![-](doc/demo/001.png)
 
 <video src="https://github.com/user-attachments/assets/3a3f650c-282b-4c3c-8423-ab492c789e04" width=1024 controls></video>
+
 <video src="https://github.com/user-attachments/assets/21401e97-a4a6-445a-8847-7f7b20a1c0c3" width=1024 controls></video>
 
 ## 方案图与整体思路
