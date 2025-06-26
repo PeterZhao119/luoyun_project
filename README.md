@@ -23,9 +23,9 @@ luoyun是一个微信bot虚拟人方案，我个人做了大约两年的时间�
 ## 效果演示
 ![-](doc/demo/001.png)
 
-<iframe src="https://youtu.be/GuFm3Fu-qhI" frameborder="0" allowfullscreen></iframe>
+<iframe width="1024" height="768" src="https://youtu.be/GuFm3Fu-qhI" frameborder="0" allowfullscreen></iframe>
 
-<iframe src="https://youtube.com/shorts/JoJevVB8H5A?feature=share" frameborder="0" allowfullscreen></iframe>
+<iframe width="1024" height="768" src="https://youtube.com/shorts/JoJevVB8H5A?feature=share" frameborder="0" allowfullscreen></iframe>
 
 ## 方案图与整体思路
 ![luoyun_project architeture](https://github.com/PeterZhao119/luoyun_project/blob/main/doc/luoyun_project%20architecture.png)
