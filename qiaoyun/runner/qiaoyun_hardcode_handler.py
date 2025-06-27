@@ -18,12 +18,13 @@ from dao.mongo import MongoDBBase
 from framework.agent.base_agent import AgentStatus
 from conf.config import CONF
 from qiaoyun.tool.image import upload_image
+from util.time_util import date2str
 
 from connector.ecloud.ecloud_api import Ecloud_API
 from bson import ObjectId
-target_user_alias = "qiaoyun"
 
-supported_hardcode = ("朋友圈 ", "删除 ")
+target_user_alias = "qiaoyun"
+supported_hardcode = ("朋友圈 ", "删除 ", "重新生成")
 
 def handle_hardcode(context, message):
     mongo = MongoDBBase()
@@ -48,3 +49,9 @@ def handle_hardcode(context, message):
 
         resp_json = Ecloud_API.snsSendImage(data)
         logger.info(resp_json)
+    
+    if str(message).startswith("重新生成"):
+        target_user_id = CONF["characters"][target_user_alias]
+
+        date_str = date2str(int(time.time()) + 7200)
+        mongo.delete_one("dailynews", {"cid": target_user_id, "date": date_str})
