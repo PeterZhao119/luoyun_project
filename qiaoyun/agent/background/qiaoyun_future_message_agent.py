@@ -27,8 +27,8 @@ from qiaoyun.agent.qiaoyun_post_analyze_agent import QiaoyunPostAnalyzeAgent
 
 
 # 触发r1做优化的概率
-default_refine_chance = 0.15
-refine_chance = 0.6
+default_refine_chance = 0
+refine_chance = 0.25
 
 class QiaoyunFutureMessageAgent(BaseAgent):
     def __init__(self, context = None, max_retries = 3, name = None):

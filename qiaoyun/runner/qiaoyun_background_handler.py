@@ -33,7 +33,7 @@ target_user_alias = "qiaoyun"
 target_user_id = CONF["characters"][target_user_alias]
 
 platform = "wechat"
-typing_speed = 2.4
+typing_speed = 2.2
 max_conversation_round = 50
 descrease_frequency = 30240 # 多少秒降低一次关系数值
 proactive_frequency = 5338 # 多少秒触发一次主动消息

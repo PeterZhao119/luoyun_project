@@ -170,7 +170,7 @@ class QiaoyunChatResponseAgent(DouBaoLLMAgent):
         future_proactive_times = self.context["conversation"]["conversation_info"]["future"]["proactive_times"]
 
         if self.resp["FutureResponse"]["FutureResponseAction"] != "无":
-            if random.random() < (0.3 ** (future_proactive_times + 1) + 0.05):
+            if random.random() < (0.25 ** (future_proactive_times + 1) + 0.05):
                 self.context["conversation"]["conversation_info"]["future"]["timestamp"] = str2timestamp(self.resp["FutureResponse"]["FutureResponseTime"])
                 self.context["conversation"]["conversation_info"]["future"]["action"] = self.resp["FutureResponse"]["FutureResponseAction"]
                 # self.context["conversation"]["conversation_info"]["proactive_times"] = self.context["conversation"]["conversation_info"]["proactive_times"] + 1

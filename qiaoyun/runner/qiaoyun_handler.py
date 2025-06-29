@@ -32,7 +32,7 @@ target_user_alias = "qiaoyun"
 target_user_id = CONF["characters"][target_user_alias]
 
 platform = "wechat"
-typing_speed = 2.8
+typing_speed = 2.2
 max_conversation_round = 50
 
 conversation_dao = ConversationDAO()
