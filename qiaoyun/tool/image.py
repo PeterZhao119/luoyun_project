@@ -17,10 +17,13 @@ from util.oss import upload_file, bucket
 
 def generate_qiaoyun_image(prompt, imgCount=1, mode=0, sub_mode="半身照", resizedWidth=768, resizedHeight=1024):
     char_lora_info = "bursty breasts, miluo_zg,"
-    char_head = "(only one Asian girl),age 26, long black hair,straight hairstyle,elegant oval face,porcelain white skin,sharp phoenix eyes,thin arched eyebrows,high nose bridge,small cherry lips,defined jawline,subtle gray eyeshadow),nice fingers, nice hands,"
+    char_head = "(only one Asian girl),age 26, long black hair,straight hairstyle,elegant oval face,porcelain white skin,sharp phoenix eyes,thin arched eyebrows,high nose bridge,small cherry lips,defined jawline,subtle gray eyeshadow,nice fingers, nice hands,"
 
-    char_breasts = "(super huge breasts:1.3), a little cleavage,"
-    char_lower = "thin waist, a little fat butt,"
+    # char_breasts = "(super huge breasts:1.4), "
+    # char_lower = "thin waist, a little fat butt,"
+
+    char_breasts = ","
+    char_lower = ","
 
     additionalNetwork = []
     if mode == 0: # 人物照
@@ -38,7 +41,7 @@ def generate_qiaoyun_image(prompt, imgCount=1, mode=0, sub_mode="半身照", res
             },
             {
                 "modelId": "8d01e6b9ba734126a945c11749fd8506", # Flux_小马-完美全圆胸纤腰
-                "weight": 0.4
+                "weight": 0.55
             },
             {
                 "modelId": "d66f79440e854f94b6b3f64e44a32e0a", # Flux丨肌肤质感调节器_毛孔细节，真实人像
@@ -178,10 +181,7 @@ def upload_image(photo_id):
 
 # 启动脚本
 if __name__ == "__main__":
-    prompt = '''wearing a thin strap nightgown,action is casually standing in front of the mirror,scene is a hotel room,standing in front of a full-length mirror,slightly motion blurred due to insufficient shutter speed,composition is casual,angle is awkward,the image is not symmetrical or aesthetically pleasing,the quality has a sense of everydayness and roughness,conveys "plain and unremarkable.", nice fingers,nice body,nice hands,nice legs,no fused fingers,
-(only one Asian girl),age 24,brown hair,small wave hairstyle,long hair on shoulder,shawl hair,(super huge breasts under upper clothes:1.4),(cleavage),
-(full body shot, side shot, side face),
-(Porcelain-dewy skin, almond-shaped double eyelids, large eyes with slightly upturned outer corners, silky raven-black hair, short nose, short face, little round jaw, round chin),no logo, no tatoo, '''
+    prompt = '''one girl'''
 
     task_id = generate_qiaoyun_image(prompt, 1, 0, "全身照")
     saved = generate_qiaoyun_image_save(task_id)
