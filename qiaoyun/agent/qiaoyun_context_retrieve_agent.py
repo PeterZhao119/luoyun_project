@@ -28,7 +28,7 @@ class QiaoyunContextRetrieveAgent(BaseAgent):
         merged_results = {}
         return_resp = {
             "character_global": "",
-            "chatacter_private": "",
+            "character_private": "",
             "user": "",
             "character_knowledge": "",
             "character_photo": ""

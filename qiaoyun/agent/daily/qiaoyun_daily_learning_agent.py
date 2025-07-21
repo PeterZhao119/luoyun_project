@@ -106,7 +106,7 @@ class QiaoyunDailyLearningAgent(DouBaoLLMAgent):
                 "file": None
             }
 
-            if embedding_type in ["chatacter_private", "user"]:
+            if embedding_type in ["character_private", "user"]:
                 metadata["uid"] = str(self.context["user"]["_id"])
 
             return upsert_one(key, value, metadata)

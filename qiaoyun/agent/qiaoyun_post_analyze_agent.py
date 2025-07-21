@@ -135,7 +135,7 @@ class QiaoyunPostAnalyzeAgent(DouBaoLLMAgent):
                 "file": None
             }
 
-            if embedding_type in ["chatacter_private", "user"]:
+            if embedding_type in ["character_private", "user"]:
                 metadata["uid"] = str(self.context["user"]["_id"])
 
             return upsert_one(key, value, metadata)
@@ -147,7 +147,7 @@ class QiaoyunPostAnalyzeAgent(DouBaoLLMAgent):
         if self.resp["CharacterPrivateSettings"] != "无":
             splits = self.resp["CharacterPrivateSettings"].split("<换行>")
             for split in splits:
-                upsert_vector(split, "chatacter_private")
+                upsert_vector(split, "character_private")
         if self.resp["CharacterKnowledges"] != "无":
             splits = self.resp["CharacterKnowledges"].split("<换行>")
             for split in splits:

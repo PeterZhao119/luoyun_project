@@ -10,14 +10,14 @@ CONTEXTPROMPT_人物信息 = '''### {character[platforms][wechat][nickname]}的�
 {character[user_info][description]}'''
 
 # "character_global": "",
-# "chatacter_private": "",
+# "character_private": "",
 # "user": "",
 # "character_knowledge": "",
 # "character_photo": ""
 
 CONTEXTPROMPT_人物资料 = '''### {character[platforms][wechat][nickname]}的人物资料
 {context_retrieve[character_global]}
-{context_retrieve[chatacter_private]}'''
+{context_retrieve[character_private]}'''
 
 CONTEXTPROMPT_用户资料 = '''### {user[platforms][wechat][nickname]}的人物资料
 {context_retrieve[user]}'''

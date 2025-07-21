@@ -150,7 +150,7 @@
         "type": "xxx", 
         # 类型包括：
         # character_global 角色全局设定
-        # chatacter_private 角色私有设定
+        # character_private 角色私有设定
         # user 用户私有设定
         # character_knowledge 角色全局知识（学习，搜索等）
         # character_photo 角色全局手机相册
